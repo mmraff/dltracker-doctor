@@ -1,0 +1,11 @@
+{
+  "git": {
+    "generic-githost.com/SomeUser/example": {
+      "master": {
+        "commit": "0123456789abcdef0123456789abcdef01234567"
+      }
+    }
+  },
+  "description": "Deliberately shortened description",
+  "version": 2
+}

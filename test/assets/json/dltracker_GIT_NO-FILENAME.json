@@ -1,0 +1,14 @@
+{
+  "git": {
+    "generic-githost.com/SomeUser/example": {
+      "0123456789abcdef0123456789abcdef01234567": {
+        "_resolved": "git://generic-githost.com/SomeUser/example.git#0123456789abcdef0123456789abcdef01234567"
+      },
+      "master": {
+        "commit": "0123456789abcdef0123456789abcdef01234567"
+      }
+    }
+  },
+  "description": "Deliberately shortened description",
+  "version": 2
+}
