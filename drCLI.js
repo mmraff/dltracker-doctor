@@ -1,4 +1,4 @@
-//#!/usr/bin/env node
+#!/usr/bin/env node
 
 const fs = require('fs')
 const path = require('path')
@@ -10,8 +10,9 @@ const createReporter = require('./reporter')
 
 const MAPFILE_NAME = 'dltracker.json'
 const program = new Command()
-// It would be nice to get the value for this from the package.json...
-//program.version('0.0.1')
+
+const { version: pkgVersion } = require('./package.json')
+program.version(pkgVersion)
 
 let currPath
 let dr
@@ -200,7 +201,6 @@ function mainMenu() {
     return result
   })
   .then(stay =>
-    // We already get bottom text automatically: the name of the choice
     stay ? mainMenu() : null
   )
 }
@@ -209,7 +209,7 @@ function mainMenu() {
 // This would skip the interactive interface.
 
 program
-  .option('-r, --report-only', 'show analysis and exit immediately')
+  .option('-r, --report-only', 'report problems and exit immediately')
   .arguments('[where]')
   .action(function(where) {
     if (!where)
@@ -245,7 +245,8 @@ program
       }
       return Promise.resolve(program.reportOnly)
       .then(reportOnly => {
-        return reportOnly ? false : reevaluateState(currPath)
+        const resultPromise = reevaluateState(currPath)
+        return reportOnly ? false : resultPromise
       })
       .catch(err => {
         if (err.code == 'EACCES' || err.code == 'EPERM') {
