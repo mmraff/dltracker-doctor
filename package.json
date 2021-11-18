@@ -17,7 +17,7 @@
   },
   "main": "drCLI.js",
   "bin": {
-    "dltdr": "./drCLI.js"
+    "dlt-dr": "./drCLI.js"
   },
   "files": [
     "doctor.js",
