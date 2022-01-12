@@ -190,7 +190,7 @@ function newDoctor(tracker) {
 
 function create(where) {
   if (where !== undefined && where !== null && typeof where !== 'string')
-    throw new TypeError('path must be given as a string')
+    return Promise.reject(new TypeError('path must be given as a string'))
  
   return createTrackerAsync(where).then(tracker => newDoctor(tracker))
 }

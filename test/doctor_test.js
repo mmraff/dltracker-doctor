@@ -193,12 +193,21 @@ describe('doctor module', function() {
     }
   }
 
+  const didNotError = new Error('There should have been an error')
+
   describe('create()', function() {
-    it('should throw a TypeError if given a non-string argument', function() {
-      for (var i = 0; i < notStringArgs.length; ++i)
-        expect(function() {
-          createDoctor(notStringArgs[i])
-        }).to.throw(TypeError)
+    it('should reject if given a non-string argument', function(done) {
+      function nextNonstring(i) {
+        if (i >= notStringArgs.length) return done()
+        return createDoctor(notStringArgs[i])
+        .then(dr => done(didNotError))
+        .catch(err => {
+          expect(err).to.be.an.instanceof(TypeError)
+          return nextNonstring(i+1)
+        })
+        .catch(err => done(err))
+      }
+      nextNonstring(0)
     })
 
     it('should reject when given a path that does not exist', function(done) {
