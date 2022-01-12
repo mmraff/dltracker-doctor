@@ -21,7 +21,8 @@
   },
   "files": [
     "doctor.js",
-    "reporter.js"
+    "reporter.js",
+	"simple-promisify.js"
   ],
   "scripts": {
     "test": "mocha"
