@@ -1,17 +1,5 @@
-const simplePromisify = (f) => {
-  return (...args) => {
-    return new Promise((resolve, reject) => {
-      args.push((err, result) => {
-        if (err) return reject(err)
-        resolve(result)
-      })
-      f.call(this, ...args)
-    })
-  }
-}
-
 const util = require('util')
-const promisify = util.promisify || simplePromisify
+const promisify = util.promisify || require('./simple-promisify')
 const fs = require('fs')
 const readFileAsync = promisify(fs.readFile)
 const writeFileAsync = promisify(fs.writeFile)
