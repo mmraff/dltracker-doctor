@@ -42,10 +42,6 @@ function requestConfirmation(msg) {
   .then(answers => answers[qName])
 }
 
-// TODO:
-// * Add menu choices for other problems
-// * Implement the operations for those choices
-
 function mainMenu() {
   const menuName = 'actions'
   const choices = [
@@ -204,9 +200,6 @@ function mainMenu() {
     stay ? mainMenu() : null
   )
 }
-
-// TODO: I'm thinking of an '-a, --autofix' option.
-// This would skip the interactive interface.
 
 program
   .option('-r, --report-only', 'report problems and exit immediately')

@@ -61,8 +61,6 @@ function getSemverColumnWidths(dataSet) {
   for (let i = 0; i < dataSet.length; ++i) {
     const item = dataSet[i]
     const itemData = item.data
-// TODO: delete this debug line when done
-if (!itemData) console.error('getSemverColumnWidths:', item)
     if (itemData.type != 'semver') continue
     if (maxNameLen < itemData.name.length)
       maxNameLen = itemData.name.length
