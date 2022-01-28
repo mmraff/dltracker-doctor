@@ -1,6 +1,6 @@
 {
   "name": "dltracker-doctor",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "CLI to diagnose and fix problems in a dltracker.json file",
   "author": {
     "name": "Matthew Rafferty",
@@ -22,7 +22,7 @@
   "files": [
     "doctor.js",
     "reporter.js",
-	"simple-promisify.js"
+    "simple-promisify.js"
   ],
   "scripts": {
     "test": "mocha"
@@ -31,7 +31,7 @@
     "commander": "^6.2.1",
     "graceful-fs": "^4",
     "inquirer": "^5.2.0",
-    "npm-package-dl-tracker": "^1.1.0"
+    "npm-package-dl-tracker": "^1"
   },
   "devDependencies": {
     "chai": "^4.3.4",
