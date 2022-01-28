@@ -70,8 +70,9 @@ function newDoctor(tracker) {
       for (let i = 0; i < currData.length; ++i) {
         const item = currData[i]
         if (item.resolved) continue
-        // The data property is a shallow object, so this is appropriate:
         const data = Object.assign({}, item.data)
+        // The only current property that makes data not shallow (git record):
+        if (data.refs) data.refs = item.data.refs.slice()
         // The error is already read-only
         results.push({ error: item.error, data: data })
       }
@@ -79,8 +80,6 @@ function newDoctor(tracker) {
     }
     return results
   }
-  // TODO: now that we're caching the copy of the working data, we might need
-  // to do more to manage it ...
 
   function getErroredPkgs(type, errCode) {
     const list = []
@@ -171,20 +170,17 @@ function newDoctor(tracker) {
     })
   }
 
-  return new Promise((resolve, reject) => {
-    tracker.audit(function(err, data) {
-      if (err) return reject(err)
-      currData = data
-      return resolve({
-        getErroredPkgs: getErroredPkgs,
-        getUnhandledErroredPkgs: getUnhandledErroredPkgs,
-        getOrphanedRefs: getOrphanedRefs,
-        markResolved: markResolved,
-        saveState: saveState,
-        data: () => getDataCopy(),
-        isChanged: () => isChanged
-      })
-    })
+  return promisify(tracker.audit)().then(data => {
+    currData = data
+    return {
+      getErroredPkgs: getErroredPkgs,
+      getUnhandledErroredPkgs: getUnhandledErroredPkgs,
+      getOrphanedRefs: getOrphanedRefs,
+      markResolved: markResolved,
+      saveState: saveState,
+      data: () => getDataCopy(),
+      isChanged: () => isChanged
+    }
   })
 }
 
